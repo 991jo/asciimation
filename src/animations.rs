@@ -179,7 +179,7 @@ impl Animation for RandomWalkers {
     /// writes the next animation step into the given frame.
     fn render(&mut self, frame: &mut Frame) {
         for walker in self.walkers.iter_mut() {
-            walker.walk(&frame);
+            walker.walk(frame);
 
             //dbg!(walker.clone());
 
