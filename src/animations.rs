@@ -2,11 +2,17 @@ use crate::frame::{Character, Color, Frame, HSVColor};
 use rand::Rng;
 
 pub trait Animation {
+    const NAME: &'static str;
+    const AUTHOR: &'static str;
     /// returns the name of the animation
-    fn name(&self) -> &'static str;
+    fn name(&self) -> &'static str {
+        Self::NAME
+    }
 
     /// returns the author of the animation
-    fn author(&self) -> &'static str;
+    fn author(&self) -> &'static str {
+        Self::AUTHOR
+    }
 
     /// writes the next animation step into the given frame.
     fn render(&mut self, frame: &mut Frame);
@@ -16,19 +22,9 @@ pub struct TextOverlay {
     pub text: String,
 }
 
-impl TextOverlay {
+impl Animation for TextOverlay {
     const NAME: &'static str = "TextOverlay";
     const AUTHOR: &'static str = "Jo";
-}
-
-impl Animation for TextOverlay {
-    fn name(&self) -> &'static str {
-        TextOverlay::NAME
-    }
-
-    fn author(&self) -> &'static str {
-        TextOverlay::AUTHOR
-    }
 
     fn render(&mut self, frame: &mut Frame) {
         let mut line = 0;
@@ -67,10 +63,6 @@ pub struct Rainbow {
     color_shift: f32,
     rotation: f32,
 }
-impl Rainbow {
-    const NAME: &'static str = "Rainbow";
-    const AUTHOR: &'static str = "Jo";
-}
 
 impl Default for Rainbow {
     fn default() -> Rainbow {
@@ -82,13 +74,8 @@ impl Default for Rainbow {
 }
 
 impl Animation for Rainbow {
-    fn name(&self) -> &'static str {
-        Rainbow::NAME
-    }
-
-    fn author(&self) -> &'static str {
-        Rainbow::AUTHOR
-    }
+    const NAME: &'static str = "Rainbow";
+    const AUTHOR: &'static str = "Jo";
 
     fn render(&mut self, frame: &mut Frame) {
         self.color_shift += 0.01;
@@ -171,11 +158,6 @@ pub struct RandomWalkers {
     walkers: Vec<RandomWalker>,
 }
 
-impl RandomWalkers {
-    const NAME: &'static str = "RandomWalkers";
-    const AUTHOR: &'static str = "Jo";
-}
-
 impl Default for RandomWalkers {
     fn default() -> RandomWalkers {
         let mut walkers = RandomWalkers {
@@ -191,15 +173,8 @@ impl Default for RandomWalkers {
 }
 
 impl Animation for RandomWalkers {
-    /// returns the name of the animation
-    fn name(&self) -> &'static str {
-        RandomWalkers::NAME
-    }
-
-    /// returns the author of the animation
-    fn author(&self) -> &'static str {
-        RandomWalkers::AUTHOR
-    }
+    const NAME: &'static str = "RandomWalkers";
+    const AUTHOR: &'static str = "Jo";
 
     /// writes the next animation step into the given frame.
     fn render(&mut self, frame: &mut Frame) {
