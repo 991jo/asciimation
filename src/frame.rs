@@ -123,7 +123,6 @@ impl Character {
 
     /// returns a Character with a random printable ASCII Character and a random color.
     pub fn random() -> Character {
-
         let character_code: u32 = rand::thread_rng().gen_range(32..128);
         let character = char::from_u32(character_code).unwrap();
 
@@ -170,10 +169,10 @@ impl<'a> Frame {
     }
 
     pub fn get(&'a self, x: usize, y: usize) -> &'a Character {
-        &self.data[y*self.x + x]
+        &self.data[y * self.x + x]
     }
 
     pub fn get_mut(&'a mut self, x: usize, y: usize) -> &'a mut Character {
-        &mut self.data[y*self.x + x]
+        &mut self.data[y * self.x + x]
     }
 }
