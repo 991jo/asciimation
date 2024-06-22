@@ -16,6 +16,16 @@ fn main() {
 
     let animation_duration = time::Duration::from_secs(5);
 
+    // handle exit via Ctrl+C/SIGINT
+    ctrlc::set_handler({
+        || {
+                // Show cursor again
+                print!("\x1B[?25h");
+                std::process::exit(1);
+        }
+    })
+    .expect("Error setting handler for Ctrl+C");
+
     loop {
         for animation_fn in animations.iter() {
             let mut animation = animation_fn();
