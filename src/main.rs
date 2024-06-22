@@ -1,5 +1,7 @@
 use crate::animations::{Animation, Rainbow, RandomWalkers, TextOverlay};
 use crate::frame::Frame;
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::Arc;
 use std::thread;
 use std::time;
 
@@ -11,9 +13,18 @@ pub mod frame;
 fn main() {
     let mut last_step = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
-    let mut animation = RandomWalkers::default();
+    let mut animation= RandomWalkers::default();
+    let should_run = Arc::new(AtomicBool::new(true));
+    ctrlc::set_handler({
+        let should_run = should_run.clone();
+        move || {
+            should_run.store(false, Ordering::SeqCst);
+        }
+    })
+    .expect("Error setting handler for Ctrl+C");
 
-    loop {
+
+    while should_run.load(Ordering::SeqCst) {
         let size = terminal_size();
 
         let (width, height) = size.unwrap();
@@ -46,4 +57,6 @@ fn main() {
         frame.render();
         last_step = time::Instant::now();
     }
+    // Show cursor again
+    print!("\x1B[?25h");
 }
