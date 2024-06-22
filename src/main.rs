@@ -1,4 +1,4 @@
-use crate::animations::{Animation, Rainbow, TextOverlay, RandomWalkers};
+use crate::animations::{Animation, Rainbow, RandomWalkers, TextOverlay};
 use crate::frame::Frame;
 use std::thread;
 use std::time;
@@ -11,7 +11,7 @@ pub mod frame;
 fn main() {
     let mut last_step = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
-    let mut animation= RandomWalkers::default();
+    let mut animation = RandomWalkers::default();
 
     loop {
         let size = terminal_size();
@@ -32,7 +32,13 @@ fn main() {
 
         // insert an overlay
         let mut overlay = TextOverlay {
-            text: format!("Resolution: {}, {}\nAnimation: {}\nBy: {}", width.0, height.0, animation.name(), animation.author()),
+            text: format!(
+                "Resolution: {}, {}\nAnimation: {}\nBy: {}",
+                width.0,
+                height.0,
+                animation.name(),
+                animation.author()
+            ),
         };
 
         overlay.render(&mut frame);
