@@ -1,4 +1,4 @@
-use crate::animations::{Animation, Rainbow, TextOverlay, RandomWalkers};
+use crate::animations::{Animation, Rainbow, RandomWalkers, TextOverlay};
 use crate::frame::Frame;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
@@ -23,6 +23,7 @@ fn main() {
     })
     .expect("Error setting handler for Ctrl+C");
 
+
     while should_run.load(Ordering::SeqCst) {
         let size = terminal_size();
 
@@ -42,7 +43,13 @@ fn main() {
 
         // insert an overlay
         let mut overlay = TextOverlay {
-            text: format!("Resolution: {}, {}\nAnimation: {}\nBy: {}", width.0, height.0, animation.name(), animation.author()),
+            text: format!(
+                "Resolution: {}, {}\nAnimation: {}\nBy: {}",
+                width.0,
+                height.0,
+                animation.name(),
+                animation.author()
+            ),
         };
 
         overlay.render(&mut frame);
