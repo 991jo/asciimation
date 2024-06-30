@@ -2,6 +2,11 @@ use crate::frame::{value_to_char, Character, Color, Frame, HSVColor};
 use nalgebra::Vector2;
 use rand::Rng;
 
+mod pixel;
+mod qrcode;
+pub use pixel::Pixels;
+pub use qrcode::QrCode;
+
 pub trait Animation {
     /// returns the name of the animation
     fn name(&self) -> &'static str;
