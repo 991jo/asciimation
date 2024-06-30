@@ -252,9 +252,7 @@ impl GOL {
                         }
                     }
                 }
-                if neighbors == 2 && self.data[y * self.x + x] {
-                    new_data[y * self.x + x] = true;
-                } else if neighbors == 3 {
+                if neighbors == 2 && self.data[y * self.x + x] || neighbors == 3 {
                     new_data[y * self.x + x] = true;
                 }
             }
@@ -395,7 +393,7 @@ impl Hills {
 
     fn step(&mut self, frame: &Frame) {
         for hill in self.hills.iter_mut() {
-            hill.pos = hill.pos + hill.direction;
+            hill.pos += hill.direction;
             hill.pos.x = hill.pos.x.rem_euclid(frame.x as f32 + 1.0);
             hill.pos.y = hill.pos.y.rem_euclid(frame.y as f32 + 1.0);
         }
@@ -419,7 +417,7 @@ impl Hills {
             value += best_value;
         }
 
-        return value;
+        value
     }
 }
 
@@ -432,8 +430,8 @@ impl Animation for Hills {
     }
 
     fn render(&mut self, frame: &mut Frame) {
-        self.initialize(&frame);
-        self.step(&frame);
+        self.initialize(frame);
+        self.step(frame);
 
         for x in 0..frame.x {
             for y in 0..frame.y {
