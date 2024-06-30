@@ -20,9 +20,9 @@ fn main() {
     // handle exit via Ctrl+C/SIGINT
     ctrlc::set_handler({
         || {
-                // Show cursor again
-                print!("\x1B[?25h");
-                std::process::exit(1);
+            // Show cursor again
+            print!("\x1B[?25h");
+            std::process::exit(1);
         }
     })
     .expect("Error setting handler for Ctrl+C");

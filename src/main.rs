@@ -23,7 +23,6 @@ fn main() {
     })
     .expect("Error setting handler for Ctrl+C");
 
-
     while should_run.load(Ordering::SeqCst) {
         let size = terminal_size();
 
