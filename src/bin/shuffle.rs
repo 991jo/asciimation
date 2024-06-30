@@ -1,4 +1,4 @@
-use asciimation::animations::{Animation, Rainbow, RandomWalkers, TextOverlay, GOL};
+use asciimation::animations::{Animation, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL};
 use asciimation::frame::Frame;
 use std::thread;
 use std::time;
@@ -11,6 +11,7 @@ fn main() {
     animations.push(|| Box::new(Rainbow::default()));
     animations.push(|| Box::new(RandomWalkers::default()));
     animations.push(|| Box::new(GOL::default()));
+    animations.push(|| Box::new(QrCode::new("https://fckaf.de/p6K", (5, 6))));
 
     let mut last_step = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
