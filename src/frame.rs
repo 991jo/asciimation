@@ -177,16 +177,14 @@ impl<'a> Frame {
     }
 }
 
-
 /// converts a brightness value from 0.0 to 1.0 to a char.
 /// 0.0 is no brightness, 1.0 is as much as possible.
 /// values outside of the range are clipped.
 pub fn value_to_char(value: f32) -> char {
-
     let scale = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
     let value = value.min(1.0).max(0.0);
 
-    let mut index = (value*(scale.len() as f32)) as usize;
+    let mut index = (value * (scale.len() as f32)) as usize;
     if index == scale.len() {
         index = scale.len() - 1;
     }
