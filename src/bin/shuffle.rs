@@ -11,7 +11,7 @@ fn main() {
     animations.push(|| Box::new(Rainbow::default()));
     animations.push(|| Box::new(RandomWalkers::default()));
     animations.push(|| Box::new(GOL::default()));
-    animations.push(|| Box::new(QrCode::new("https://fckaf.de/p6K", (5, 6))));
+    animations.push(|| Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))));
 
     let mut last_step = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
