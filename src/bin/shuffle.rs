@@ -1,5 +1,5 @@
 use asciimation::animations::{
-    Animation, Drops, Hexagons, Hills, Matrix, MovingBlocks, QrCode, Rainbow, TextOverlay, GOL,
+    Animation, Drops, Hexagons, Hills, Mandelbrot, Matrix, MovingBlocks, QrCode, Rainbow, TextOverlay, GOL,
 };
 use asciimation::filters::fadeout;
 use asciimation::frame::Frame;
@@ -37,6 +37,7 @@ fn main() {
         || Box::<GOL>::default(),
         || Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))),
         || Box::<Matrix>::default(),
+        || Box::<Mandelbrot>::default(),
     ];
 
     let mut step_start = time::Instant::now();
