@@ -6,12 +6,12 @@ use std::time;
 use terminal_size::terminal_size;
 
 fn main() {
-    let mut animations: Vec<fn() -> Box<dyn Animation>> = Vec::new();
-
-    animations.push(|| Box::<Rainbow>::default());
-    animations.push(|| Box::<RandomWalkers>::default());
-    animations.push(|| Box::<GOL>::default());
-    animations.push(|| Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))));
+    let animations: Vec<fn() -> Box<dyn Animation>> = vec![
+        || Box::<Rainbow>::default(),
+        || Box::<RandomWalkers>::default(),
+        || Box::<GOL>::default(),
+        || Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))),
+    ];
 
     let mut last_step = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
