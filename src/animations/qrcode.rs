@@ -1,6 +1,5 @@
-use super::Animation;
+use super::prelude::*;
 use super::Pixels;
-use crate::frame::Frame;
 
 pub struct QrCode {
     pixels: Pixels,

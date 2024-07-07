@@ -1,5 +1,4 @@
-use super::Animation;
-use crate::frame::{Character, Frame, HSVColor};
+use super::prelude::*;
 use nalgebra::DMatrix;
 pub struct Pixels {
     pub pos_top_left: (usize, usize),
