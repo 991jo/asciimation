@@ -7,6 +7,7 @@ This is a collection of interesting animations that output to ASCII in the termi
 # Contributing
 
 Feel free to add your own animations.
+(It would be nice ifyour code is formatted by running `cargo fmt` and passes `cargo clippy` without any issues.)
 
 Your animation has to be a struct that implements the `animation::Animation` Trait.
 
