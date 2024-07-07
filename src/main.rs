@@ -13,7 +13,7 @@ pub mod frame;
 fn main() {
     let mut last_step = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
-    let mut animation= RandomWalkers::default();
+    let mut animation = RandomWalkers::default();
     let should_run = Arc::new(AtomicBool::new(true));
     ctrlc::set_handler({
         let should_run = should_run.clone();
@@ -22,7 +22,6 @@ fn main() {
         }
     })
     .expect("Error setting handler for Ctrl+C");
-
 
     while should_run.load(Ordering::SeqCst) {
         let size = terminal_size();
