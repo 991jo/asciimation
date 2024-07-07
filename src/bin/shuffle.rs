@@ -8,9 +8,9 @@ use terminal_size::terminal_size;
 fn main() {
     let mut animations: Vec<fn() -> Box<dyn Animation>> = Vec::new();
 
-    animations.push(|| Box::new(Rainbow::default()));
-    animations.push(|| Box::new(RandomWalkers::default()));
-    animations.push(|| Box::new(GOL::default()));
+    animations.push(|| Box::<Rainbow>::default());
+    animations.push(|| Box::<RandomWalkers>::default());
+    animations.push(|| Box::<GOL>::default());
     animations.push(|| Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))));
 
     let mut last_step = time::Instant::now();
