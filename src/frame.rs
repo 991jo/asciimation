@@ -175,6 +175,11 @@ impl<'a> Frame {
     pub fn get_mut(&'a mut self, x: usize, y: usize) -> &'a mut Character {
         &mut self.data[y * self.x + x]
     }
+
+    /// Set the character at position (x,y).
+    pub fn set_at(&mut self, x: usize, y: usize, character: Character) {
+        *self.get_mut(x, y) = character;
+    }
 }
 
 /// converts a brightness value from 0.0 to 1.0 to a char.
