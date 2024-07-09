@@ -1,4 +1,6 @@
-use asciimation::animations::{Animation, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL};
+use asciimation::animations::{
+    Animation, Matrix, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL,
+};
 use asciimation::frame::Frame;
 use std::thread;
 use std::time;
@@ -11,6 +13,7 @@ fn main() {
         || Box::<RandomWalkers>::default(),
         || Box::<GOL>::default(),
         || Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))),
+        || Box::<Matrix>::default(),
     ];
 
     let mut last_step = time::Instant::now();

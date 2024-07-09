@@ -2,6 +2,7 @@ use crate::frame::Frame;
 
 mod gol;
 mod hills;
+mod matrix;
 mod pixel;
 mod prelude;
 mod qrcode;
@@ -10,6 +11,7 @@ mod random_walkers;
 mod text_overlay;
 pub use gol::GOL;
 pub use hills::Hills;
+pub use matrix::Matrix;
 pub use pixel::Pixels;
 pub use qrcode::QrCode;
 pub use rainbow::Rainbow;

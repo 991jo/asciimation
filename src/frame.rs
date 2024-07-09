@@ -1,7 +1,7 @@
 use rand::prelude::*;
 use std::io::{self, Write};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Color {
     pub r: f32,
     pub g: f32,
@@ -22,20 +22,46 @@ pub struct Frame {
 }
 
 impl Color {
+    pub const BLACK: Color = Color {
+        r: 0.0,
+        g: 0.0,
+        b: 0.0,
+    };
+    pub const WHITE: Color = Color {
+        r: 1.0,
+        g: 1.0,
+        b: 1.0,
+    };
+
+    /// Returns the color black
     pub fn black() -> Color {
-        Color {
-            r: 0.0,
-            g: 0.0,
-            b: 0.0,
-        }
+        Color::BLACK.clone()
     }
 
+    /// Returns the color white
     pub fn white() -> Color {
-        Color {
-            r: 1.0,
-            g: 1.0,
-            b: 1.0,
-        }
+        Color::WHITE.clone()
+    }
+
+    /// Scales all color values by the given factor.
+    /// clamps them between 0 and 1
+    pub fn scale(&mut self, factor: f32) {
+        self.r = (self.r * factor).clamp(0.0, 1.0);
+        self.g = (self.g * factor).clamp(0.0, 1.0);
+        self.b = (self.b * factor).clamp(0.0, 1.0);
+    }
+
+    /// Subtracts the given value from all color values.
+    /// clamps them between 0 and 1
+    pub fn subtract(&mut self, value: f32) {
+        self.r = (self.r - value).clamp(0.0, 1.0);
+        self.g = (self.g - value).clamp(0.0, 1.0);
+        self.b = (self.b - value).clamp(0.0, 1.0);
+    }
+
+    /// Calculates the luminance of the color
+    pub fn luminance(&self) -> f32 {
+        0.3 * self.r + 0.59 * self.g + 0.11 * self.b
     }
 }
 
