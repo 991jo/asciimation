@@ -9,5 +9,7 @@ default-run = "shuffle"
 [dependencies]
 ctrlc = "3.4.4"
 nalgebra = "0.32.6"
+num-integer = "0.1.46"
+qrcode = "0.14.0"
 rand = "0.8.5"
 terminal_size = "0.3.0"

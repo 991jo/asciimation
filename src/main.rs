@@ -1,4 +1,4 @@
-use crate::animations::{Animation, Rainbow, RandomWalkers, TextOverlay};
+use crate::animations::{Animation, RandomWalkers, TextOverlay};
 use crate::frame::Frame;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;

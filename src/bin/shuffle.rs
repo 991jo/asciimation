@@ -1,4 +1,4 @@
-use asciimation::animations::{Animation, Rainbow, RandomWalkers, TextOverlay, GOL};
+use asciimation::animations::{Animation, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL};
 use asciimation::frame::Frame;
 use std::thread;
 use std::time;
@@ -6,11 +6,12 @@ use std::time;
 use terminal_size::terminal_size;
 
 fn main() {
-    let mut animations: Vec<fn() -> Box<dyn Animation>> = Vec::new();
-
-    animations.push(|| Box::new(Rainbow::default()));
-    animations.push(|| Box::new(RandomWalkers::default()));
-    animations.push(|| Box::new(GOL::default()));
+    let animations: Vec<fn() -> Box<dyn Animation>> = vec![
+        || Box::<Rainbow>::default(),
+        || Box::<RandomWalkers>::default(),
+        || Box::<GOL>::default(),
+        || Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))),
+    ];
 
     let mut last_step = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
