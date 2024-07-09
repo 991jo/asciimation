@@ -35,7 +35,7 @@ impl QrCode {
                 qrcode::Color::Dark => false,
             }),
         );
-        // Add 2 pixels of white boarder.
+        // Add 2 pixels of white border.
         let image = image.insert_rows(dimension, 2, true);
         let image = image.insert_columns(dimension, 2, true);
         let image = image.insert_rows(0, 2, true);
