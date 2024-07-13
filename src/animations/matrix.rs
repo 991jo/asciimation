@@ -68,6 +68,14 @@ impl Matrix {
         "Fanatischer Aalen Termin",
         "Fragwürdiger Aalen Termin",
         "Fantasievoller Aalen Termin",
+        "Fabelhafter Aalen Termin",
+        "Fantasievoller Aalen Termin",
+        "Fehlerharter Aalen Termin",
+        "Fehlerfreier Aalen Termin",
+        "Feinmotorischer Aalen Termin",
+        "Fiktionaler Aalen Termin",
+        "Floraler Aalen Termin",
+        "Frecher Aalen Termin",
     ];
 
     pub fn get_text() -> Vec<char> {
