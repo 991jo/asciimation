@@ -1,5 +1,5 @@
 use asciimation::animations::{
-    Animation, Matrix, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL,
+    Animation, Matrix, MovingBlocks, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL,
 };
 use asciimation::frame::Frame;
 use clap::Parser;
@@ -24,6 +24,7 @@ fn main() {
     let args = Args::parse();
 
     let animations: Vec<fn() -> Box<dyn Animation>> = vec![
+        || Box::<MovingBlocks>::default(),
         || Box::<Rainbow>::default(),
         || Box::<RandomWalkers>::default(),
         || Box::<GOL>::default(),

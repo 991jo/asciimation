@@ -203,8 +203,22 @@ impl<'a> Frame {
     }
 
     /// Set the character at position (x,y).
+    /// If the position is outside of the frame, the behavior is undefined.
+    ///
+    /// `set_at_clipping` is the prefered way of setting values.
+    ///
+    /// Use this only when you are sure, that you know what you are doing and you need the
+    /// slight performance increase
     pub fn set_at(&mut self, x: usize, y: usize, character: Character) {
         *self.get_mut(x, y) = character;
+    }
+
+    /// Set the character at position (x,y).
+    /// If the point is outside of the frame, nothing is done.
+    pub fn set_at_clipping(&mut self, x: isize, y: isize, character: Character) {
+        if x >= 0 && x < self.x as isize && y >= 0 && y < self.y as isize {
+            *self.get_mut(x as usize, y as usize) = character;
+        }
     }
 }
 
