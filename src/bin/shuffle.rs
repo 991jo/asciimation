@@ -2,12 +2,27 @@ use asciimation::animations::{
     Animation, Matrix, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL,
 };
 use asciimation::frame::Frame;
+use clap::Parser;
 use std::thread;
 use std::time;
 
 use terminal_size::terminal_size;
 
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    /// Enable debug output
+    #[arg(short, long, default_value_t = false)]
+    debug: bool,
+
+    /// Time in seconds each animation is shown
+    #[arg(short, long, default_value_t = 60)]
+    animation_time: usize,
+}
+
 fn main() {
+    let args = Args::parse();
+
     let animations: Vec<fn() -> Box<dyn Animation>> = vec![
         || Box::<Rainbow>::default(),
         || Box::<RandomWalkers>::default(),
@@ -16,10 +31,10 @@ fn main() {
         || Box::<Matrix>::default(),
     ];
 
-    let mut last_step = time::Instant::now();
+    let mut step_start = time::Instant::now();
     let step_length = time::Duration::from_millis(16);
 
-    let animation_duration = time::Duration::from_secs(5);
+    let animation_duration = time::Duration::from_secs(args.animation_time as u64);
 
     // handle exit via Ctrl+C/SIGINT
     ctrlc::set_handler({
@@ -37,20 +52,18 @@ fn main() {
 
             let animation_start = time::Instant::now();
 
-            while animation_start + animation_duration >= time::Instant::now() {
+            step_start = time::Instant::now();
+
+            while animation_start + animation_duration >= step_start {
+                let animation_time_remaining = (animation_start + animation_duration) - step_start;
                 let size = terminal_size();
                 let (width, height) = size.unwrap();
-
-                // sleep until we are ready
-                let sleep_time = step_length - last_step.elapsed();
-
-                if sleep_time > time::Duration::ZERO {
-                    thread::sleep(sleep_time);
-                }
 
                 // build a frame
                 let mut frame = Frame::new(width.0 as usize, height.0 as usize);
                 animation.render(&mut frame);
+
+                let elapsed = step_start.elapsed();
 
                 // insert an overlay
                 let mut overlay = TextOverlay {
@@ -59,14 +72,35 @@ fn main() {
                         width.0,
                         height.0,
                         animation.name(),
-                        animation.author()
+                        animation.author(),
                     ),
                 };
+
+                if args.debug {
+                    // insert an overlay
+                    overlay = TextOverlay {
+                        text: format!(
+                                  "Resolution: {}, {}\nAnimation: {}\nBy: {}\nRender Time:{}/{}µs\nTime remaining: {}s",
+                                  width.0,
+                                  height.0,
+                                  animation.name(),
+                                  animation.author(),
+                                  elapsed.as_micros(),
+                                  step_length.as_micros(),
+                                  animation_time_remaining.as_secs(),
+                              ),
+                    };
+                }
 
                 overlay.render(&mut frame);
 
                 frame.render();
-                last_step = time::Instant::now();
+
+                if elapsed < step_length {
+                    let sleep_time = step_length - elapsed;
+                    thread::sleep(sleep_time);
+                }
+                step_start = time::Instant::now();
             }
         }
     }
