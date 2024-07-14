@@ -1,6 +1,7 @@
 use asciimation::animations::{
-    Animation, Drops, Matrix, MovingBlocks, QrCode, Rainbow, RandomWalkers, TextOverlay, GOL,
+    Animation, Drops, Matrix, MovingBlocks, QrCode, Rainbow, TextOverlay, GOL,
 };
+use asciimation::filters::fadeout;
 use asciimation::frame::Frame;
 use clap::Parser;
 use std::thread;
@@ -18,6 +19,10 @@ struct Args {
     /// Time in seconds each animation is shown
     #[arg(short, long, default_value_t = 60)]
     animation_time: usize,
+
+    /// Time in seconds when the fade-out starts
+    #[arg(short, long, default_value_t = 2)]
+    fadeout_time: usize,
 }
 
 fn main() {
@@ -27,7 +32,6 @@ fn main() {
         || Box::<Drops>::default(),
         || Box::<MovingBlocks>::default(),
         || Box::<Rainbow>::default(),
-        || Box::<RandomWalkers>::default(),
         || Box::<GOL>::default(),
         || Box::new(QrCode::new("https://github.com/991jo/asciimation", (5, 6))),
         || Box::<Matrix>::default(),
@@ -37,6 +41,7 @@ fn main() {
     let step_length = time::Duration::from_millis(16);
 
     let animation_duration = time::Duration::from_secs(args.animation_time as u64);
+    let fadeout_time = time::Duration::from_secs(args.fadeout_time as u64);
 
     // handle exit via Ctrl+C/SIGINT
     ctrlc::set_handler({
@@ -66,6 +71,13 @@ fn main() {
                 animation.render(&mut frame);
 
                 let elapsed = step_start.elapsed();
+
+                // check for fade out
+                if animation_time_remaining < fadeout_time {
+                    let fade = animation_time_remaining.as_secs_f32() / fadeout_time.as_secs_f32();
+
+                    fadeout(&mut frame, fade)
+                }
 
                 // insert an overlay
                 let mut overlay = TextOverlay {
