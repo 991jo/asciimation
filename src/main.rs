@@ -9,6 +9,7 @@ use terminal_size::terminal_size;
 
 pub mod animations;
 pub mod frame;
+pub mod utils;
 
 fn main() {
     let mut last_step = time::Instant::now();
