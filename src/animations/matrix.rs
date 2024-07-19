@@ -70,7 +70,7 @@ impl Matrix {
         "Fantasievoller Aalen Termin",
         "Fabelhafter Aalen Termin",
         "Fantasievoller Aalen Termin",
-        "Fehlerharter Aalen Termin",
+        "Fehlerhafter Aalen Termin",
         "Fehlerfreier Aalen Termin",
         "Feinmotorischer Aalen Termin",
         "Fiktionaler Aalen Termin",
