@@ -23,7 +23,7 @@ impl Mandelbrot {
         let max_iterations = self.calculate_max_iterations();
 
         for iteration in 0..max_iterations {
-            z = z.powf(2.0) + c;
+            z = z.powi(2) + c;
 
             if z.abs() > Mandelbrot::BOUND {
                 return iteration;
@@ -34,7 +34,7 @@ impl Mandelbrot {
     }
 
     fn calculate_max_iterations(&self) -> i32 {
-        (50.0 + (4.0 / self.width).log10().powf(2.0)).round() as i32
+        (50.0 + (4.0 / self.width).log10().powi(2)).round() as i32
     }
 }
 
