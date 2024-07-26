@@ -1,5 +1,6 @@
 use asciimation::animations::{
-    Animation, Drops, Hexagons, Hills, Mandelbrot, Matrix, MovingBlocks, QrCode, Rainbow, TextOverlay, GOL,
+    Animation, Drops, Hexagons, Hills, Mandelbrot, Matrix, MovingBlocks, QrCode, Rainbow,
+    TextOverlay, GOL,
 };
 use asciimation::filters::fadeout;
 use asciimation::frame::Frame;
