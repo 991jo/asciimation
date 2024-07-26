@@ -63,6 +63,19 @@ impl Color {
     pub fn luminance(&self) -> f32 {
         0.3 * self.r + 0.59 * self.g + 0.11 * self.b
     }
+
+    /// interpolate between self and the other color.
+    /// if value is clamped to 0.0 and 1.0.
+    ///
+    /// If value is 0.0 self is returned, at 1.0 other is returned.
+    pub fn interpolate(&self, other: &Color, value: f32) -> Color {
+        let value = value.clamp(0.0, 1.0);
+        Color {
+            r: self.r * (1.0 - value) + value * other.r,
+            g: self.g * (1.0 - value) + other.g * value,
+            b: self.b * (1.0 - value) + other.b * value,
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
