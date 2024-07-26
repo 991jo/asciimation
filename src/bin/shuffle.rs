@@ -1,5 +1,5 @@
 use asciimation::animations::{
-    Animation, Drops, Hills, Matrix, MovingBlocks, QrCode, Rainbow, TextOverlay, GOL,
+    Animation, Drops, Hexagons, Hills, Matrix, MovingBlocks, QrCode, Rainbow, TextOverlay, GOL,
 };
 use asciimation::filters::fadeout;
 use asciimation::frame::Frame;
@@ -29,6 +29,7 @@ fn main() {
     let args = Args::parse();
 
     let animations: Vec<fn() -> Box<dyn Animation>> = vec![
+        || Box::<Hexagons>::default(),
         || Box::<Drops>::default(),
         || Box::<Hills>::default(),
         || Box::<MovingBlocks>::default(),
