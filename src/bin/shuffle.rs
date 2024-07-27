@@ -2,9 +2,10 @@ use asciimation::animations::{
     Animation, Drops, Hexagons, Hills, Mandelbrot, Matrix, MovingBlocks, QrCode, Rainbow,
     TextOverlay, GOL,
 };
-use asciimation::filters::fadeout;
+use asciimation::filters::{fadeout, DVDLogo};
 use asciimation::frame::Frame;
 use clap::Parser;
+use rand::Rng;
 use std::thread;
 use std::time;
 
@@ -59,6 +60,9 @@ fn main() {
 
     loop {
         for animation_fn in animations.iter() {
+            let mut dvd = DVDLogo::default();
+
+            let draw_dvd = rand::thread_rng().gen::<f32>() < 0.03;
             let mut animation = animation_fn();
 
             let animation_start = time::Instant::now();
@@ -75,6 +79,11 @@ fn main() {
                 animation.render(&mut frame);
 
                 let elapsed = step_start.elapsed();
+
+                if draw_dvd {
+                    dvd.step(&frame);
+                    dvd.draw(&mut frame);
+                }
 
                 // check for fade out
                 if animation_time_remaining < fadeout_time {
