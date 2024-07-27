@@ -60,10 +60,15 @@ impl Animation for Rainbow {
                 };
                 let color = Color::from(hsv_color);
 
-                frame.data[y * frame.x + x] = Character {
-                    character: 'A',
-                    color,
+                let character = match x % 5 {
+                    0 => 'F',
+                    1 => 'A',
+                    2 => 'T',
+                    3 => '2',
+                    _ => '4',
                 };
+
+                frame.data[y * frame.x + x] = Character { character, color };
             }
         }
     }
