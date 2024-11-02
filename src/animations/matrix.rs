@@ -64,19 +64,20 @@ impl Animation for Matrix {
 }
 
 impl Matrix {
-    pub const TEXTE: &'static [&'static str] = &[
-        "Fanatischer Aalen Termin",
-        "Fragwürdiger Aalen Termin",
-        "Fantasievoller Aalen Termin",
-        "Fabelhafter Aalen Termin",
-        "Fantasievoller Aalen Termin",
-        "Fehlerhafter Aalen Termin",
-        "Fehlerfreier Aalen Termin",
-        "Feinmotorischer Aalen Termin",
-        "Fiktionaler Aalen Termin",
-        "Floraler Aalen Termin",
-        "Frecher Aalen Termin",
-    ];
+    pub const TEXTE: &'static [&'static str] = &["Dynamic Host Configuration Protocol"];
+    //pub const TEXTE: &'static [&'static str] = &[
+    //    "Fanatischer Aalen Termin",
+    //    "Fragwürdiger Aalen Termin",
+    //    "Fantasievoller Aalen Termin",
+    //    "Fabelhafter Aalen Termin",
+    //    "Fantasievoller Aalen Termin",
+    //    "Fehlerhafter Aalen Termin",
+    //    "Fehlerfreier Aalen Termin",
+    //    "Feinmotorischer Aalen Termin",
+    //    "Fiktionaler Aalen Termin",
+    //    "Floraler Aalen Termin",
+    //    "Frecher Aalen Termin",
+    //];
 
     pub fn get_text() -> Vec<char> {
         let mut rng = rand::thread_rng();
@@ -87,7 +88,7 @@ impl Matrix {
             let text = Matrix::TEXTE[rng.gen_range(0..Matrix::TEXTE.len())];
             return text.chars().collect();
         } else {
-            return "Fantastischer Aalen Termin".chars().collect();
+            return "Die Heilbronner Chaos Party".chars().collect();
         }
     }
     pub fn initialize(&mut self, frame: &Frame) {

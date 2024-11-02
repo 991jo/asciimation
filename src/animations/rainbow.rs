@@ -60,11 +60,12 @@ impl Animation for Rainbow {
                 };
                 let color = Color::from(hsv_color);
 
-                let character = match x % 5 {
-                    0 => 'F',
-                    1 => 'A',
-                    2 => 'T',
-                    3 => '2',
+                let character = match x % 6 {
+                    0 => 'D',
+                    1 => 'H',
+                    2 => 'C',
+                    3 => 'P',
+                    4 => '2',
                     _ => '4',
                 };
 
